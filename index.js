@@ -1,51 +1,93 @@
-let numbersKeyboard = ["Digit1", "Digit2", "Digit3", "Digit4"];
 let input = document.createElement("input");
+input.className = "input";
 document.body.appendChild(input);
+
 let keyboard = document.createElement("div");
 keyboard.className = "keyboard";
 document.body.appendChild(keyboard);
+
+
+
+let keyBeginF = ['Esc','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12']
+let numbersFromF = document.createElement("ul");
+numbersFromF.className = "numbersFromF";
+keyboard.append(numbersFromF);
+
+
+
+for (let a = 0; a < keyBeginF.length; a++) {
+  let fKeys = document.createElement("li");
+  fKeys.textContent = keyBeginF[a];
+  numbersFromF.appendChild(fKeys);
+}
+
+let keyCodeValues = ['Escape','112', '113', '114', '115', '115','116','117','118','119','120','121','122'];
+
+let arrLiFromF = Array.from(numbersFromF.querySelectorAll('li'));
+for (let a = 0; a < keyCodeValues.length; a++){
+  arrLiFromF[a].setAttribute('data-keycode',keyCodeValues[a]);
+};
+
+
+input.addEventListener('keydown', function(event){
+  let keyCode = event.key || event.keyCode
+  for (let i = 0; i<arrLiFromF.length; i++){
+    let datakeyCode = arrLiFromF[i].getAttribute('data-keycode');
+    if ( keyCode === datakeyCode){
+      arrLiFromF[i].style.color = "red"
+     }
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 let numbers = document.createElement("ul");
 numbers.className = "numbers";
-keyboard.append(numbers);
-
-for (let i = 1; i <= 4; i++) {
+keyboard.appendChild(numbers);
+for (let i = 1; i <= 9; i++) {
   let p = document.createElement("li");
   p.textContent = i;
   numbers.appendChild(p);
 }
+
+let numbersKeyboard = [ 1, 2, 3, 4,5,6,7,8,9];
 const children = Array.from(numbers.children);
-console.log(children[0]);
+for (let a = 0; a < numbersKeyboard.length; a++){
+  children[a].setAttribute('data-keycode',numbersKeyboard[a]);
+};
+
+
+input.focus();
 input.addEventListener("keydown", function (event) {
-  for (var i = 0; i < numbersKeyboard.length; i++) {
-    if (event.key == 1) {
-      children[0].style.backgroundColor = "blue";
-    }
-    if (event.key == 2) {
-      children[1].style.backgroundColor = "blue";
-    }
-    if (event.key == 3) {
-      children[2].style.backgroundColor = "blue";
-    }
-    if (event.key == 4) {
-      children[3].style.backgroundColor = "blue";
-    }
+   for (let i = 0; i < children.length; i++){
+    let codeKeyboard =  children[i].getAttribute('data-keycode');
+    if ( event.key === codeKeyboard){
+      children[i].style.color = "red"
+      }
   }
 });
 input.addEventListener("keyup", function (event) {
-  for (var i = 0; i < numbersKeyboard.length; i++) {
-    if (event.key == 1) {
-      children[0].style.backgroundColor = "black";
-    }
-    if (event.key == 2) {
-      children[1].style.backgroundColor = "black";
-    }
-    if (event.key == 3) {
-      children[2].style.backgroundColor = "black";
-    }
-    if (event.key == 4) {
-      children[3].style.backgroundColor = "black";
-    }
-  }
+  for (let i = 0; i < children.length; i++){
+   let codeKeyboard =  children[i].getAttribute('data-keycode');
+   if ( event.key === codeKeyboard){
+     children[i].style.color = "white"
+     }
+ }
 });
 
-//нужно закончить и провести рефакторинг кода
+
+
+
+
+
+
